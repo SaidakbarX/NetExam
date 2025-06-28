@@ -1,0 +1,6 @@
+@NetExam.Api_HostAddress = http://localhost:5098
+
+GET {{NetExam.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
