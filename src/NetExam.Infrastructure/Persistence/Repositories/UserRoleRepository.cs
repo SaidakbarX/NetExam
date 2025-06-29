@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetExam.Application.Interfaces;
+using NetExam.Core.Errors;
 using NetExam.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,16 @@ public class UserRoleRepository : IUserRoleRepository
             _context.UserRoles.Remove(role);
             await _context.SaveChangesAsync();
         }
+    }
+
+    public async Task<long> GetRoleIdAsync(string role)
+    {
+        var foundRole = await _context.UserRoles.FirstOrDefaultAsync(_ => _.Name == role);
+        if (foundRole is null)
+        {
+            throw new EntityNotFoundException(role + " - not found");
+        }
+        return foundRole.Id;
     }
 }
 

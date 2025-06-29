@@ -10,6 +10,7 @@ namespace NetExam.Application.Interfaces;
 public interface IUserRoleRepository
 {
     Task<UserRole> GetByIdAsync(long id);
+    Task<long> GetRoleIdAsync(string role);
     Task<UserRole> GetByNameAsync(string name);
     Task<IEnumerable<UserRole>> GetAllAsync();
 
