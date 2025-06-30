@@ -8,7 +8,9 @@ namespace NetExam.Application.Dtos;
 
 public class ExamResultDto
 {
+    public long ExamId { get; set; }
     public long Id { get; set; }
+    public long UserId { get; set; }
     public string UserFullName { get; set; }
     public string ExamTitle { get; set; }
     public double Score { get; set; }

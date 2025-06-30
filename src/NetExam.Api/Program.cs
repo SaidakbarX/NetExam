@@ -1,5 +1,7 @@
 
 using NetExam.Api.Configurations;
+using NetExam.Api.Entpoints;
+using NetExam.Api.Middlewears;
 
 namespace NetExam.Api
 {
@@ -17,7 +19,7 @@ namespace NetExam.Api
             builder.Services.AddSwaggerGen();
             builder.ConfigureDataBase();
             builder.ConfigureSerilog();
-
+            builder.ConfigureJwtSettings();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,6 +32,21 @@ namespace NetExam.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.MapExamEndpoints();
+            app.MapCodeQuestionEndpoints();
+            app.MapCodeSubmissionEndpoints();
+            app.MapExamResultEndpoints();
+            app.MapStarterTemplateEndpoints();
+            app.MapProgrammingLanguageEndpoints();
+            app.MapTestCaseEndpoints();
+            app.MapUserRoleEndpoints();
+
+
+
 
 
             app.MapControllers();
