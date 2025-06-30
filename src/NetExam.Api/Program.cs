@@ -44,7 +44,9 @@ namespace NetExam.Api
             app.MapStarterTemplateEndpoints();
             app.MapProgrammingLanguageEndpoints();
             app.MapTestCaseEndpoints();
-            app.MapUserRoleEndpoints();
+            app.MapAuthEndpoints();
+            app.MapUserEndpoints();
+
 
 
 

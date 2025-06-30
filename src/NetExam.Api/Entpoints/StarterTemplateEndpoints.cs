@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -22,7 +23,7 @@ public static class StarterTemplateEndpoints
             return item is not null ? Results.Ok(item) : Results.NotFound();
         });
 
-        group.MapPost("/", async (StarterTemplateDto dto, IStarterTemplateService service, IValidator<StarterTemplateDto> validator) =>
+        group.MapPost("/", async (StarterTemplateDto dto, IStarterTemplateService service, [FromServices] IValidator<StarterTemplateDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)
@@ -32,7 +33,7 @@ public static class StarterTemplateEndpoints
             return Results.Ok();
         });
 
-        group.MapPut("/", async (StarterTemplateDto dto, IStarterTemplateService service, IValidator<StarterTemplateDto> validator) =>
+        group.MapPut("/", async (StarterTemplateDto dto, IStarterTemplateService service, [FromServices] IValidator<StarterTemplateDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)

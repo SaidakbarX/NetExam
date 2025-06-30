@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -34,7 +35,7 @@ public static class CodeSubmissionEndpoints
             return Results.Ok(items);
         });
 
-        group.MapPost("/", async (CodeSubmissionDto dto, ICodeSubmissionService service, IValidator<CodeSubmissionDto> validator) =>
+        group.MapPost("/", async (CodeSubmissionDto dto, ICodeSubmissionService service, [FromServices] IValidator<CodeSubmissionDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)

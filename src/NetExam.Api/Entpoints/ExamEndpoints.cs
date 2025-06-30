@@ -23,7 +23,7 @@ namespace NetExam.Api.Entpoints
                 return exam is not null ? Results.Ok(exam) : Results.NotFound();
             });
 
-            group.MapPost("/", async (ExamCreateDto dto, IExamService service, IValidator<ExamCreateDto> validator) =>
+            group.MapPost("/", async (ExamCreateDto dto, IExamService service, [FromServices] IValidator<ExamCreateDto> validator) =>
             {
                 var validation = await validator.ValidateAsync(dto);
                 if (!validation.IsValid)
@@ -33,7 +33,7 @@ namespace NetExam.Api.Entpoints
                 return Results.Created("/api/exams", dto);
             });
 
-            group.MapPut("/{id:long}", async (long id, ExamCreateDto dto, IExamService service, IValidator<ExamCreateDto> validator) =>
+            group.MapPut("/{id:long}", async (long id, ExamCreateDto dto, IExamService service, [FromServices] IValidator<ExamCreateDto> validator) =>
             {
                 var validation = await validator.ValidateAsync(dto);
                 if (!validation.IsValid)

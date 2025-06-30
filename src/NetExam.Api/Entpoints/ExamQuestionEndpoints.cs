@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -16,7 +17,7 @@ public static class ExamQuestionEndpoints
             return Results.Ok(result);
         });
 
-        group.MapPost("/", async (ExamQuestionDto dto, IExamQuestionService service, IValidator<ExamQuestionDto> validator) =>
+        group.MapPost("/", async (ExamQuestionDto dto, IExamQuestionService service, [FromServices] IValidator<ExamQuestionDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)
@@ -26,7 +27,7 @@ public static class ExamQuestionEndpoints
             return Results.Ok();
         });
 
-        group.MapPut("/", async (ExamQuestionDto dto, IExamQuestionService service, IValidator<ExamQuestionDto> validator) =>
+        group.MapPut("/", async (ExamQuestionDto dto, IExamQuestionService service, [FromServices] IValidator<ExamQuestionDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)

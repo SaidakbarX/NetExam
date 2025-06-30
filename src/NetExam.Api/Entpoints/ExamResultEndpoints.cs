@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -34,7 +35,7 @@ public static class ExamResultEndpoints
             return Results.Ok(average);
         });
 
-        group.MapPost("/", async (ExamResultDto dto, IExamResultService service, IValidator<ExamResultDto> validator) =>
+        group.MapPost("/", async (ExamResultDto dto, IExamResultService service, [FromServices] IValidator<ExamResultDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)

@@ -23,7 +23,7 @@ public static class ProgrammingLanguageEndpoints
             return item is not null ? Results.Ok(item) : Results.NotFound();
         });
 
-        group.MapPost("/", async (ProgrammingLanguageDto dto, IProgrammingLanguageService service, IValidator<ProgrammingLanguageDto> validator) =>
+        group.MapPost("/", async (ProgrammingLanguageDto dto, IProgrammingLanguageService service, [FromServices] IValidator<ProgrammingLanguageDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)
@@ -33,7 +33,7 @@ public static class ProgrammingLanguageEndpoints
             return Results.Ok();
         });
 
-        group.MapPut("/", async (ProgrammingLanguageDto dto, IProgrammingLanguageService service, IValidator<ProgrammingLanguageDto> validator) =>
+        group.MapPut("/", async (ProgrammingLanguageDto dto, IProgrammingLanguageService service, [FromServices] IValidator<ProgrammingLanguageDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)

@@ -23,7 +23,7 @@ public static class CodeQuestionEndpoints
             return question is not null ? Results.Ok(question) : Results.NotFound();
         });
 
-        group.MapPost("/", async (CodeQuestionDto dto, ICodeQuestionService service, IValidator<CodeQuestionDto> validator) =>
+        group.MapPost("/", async (CodeQuestionDto dto, ICodeQuestionService service, [FromServices] IValidator<CodeQuestionDto> validator) =>
         {
             var validation = await validator.ValidateAsync(dto);
             if (!validation.IsValid)
@@ -33,7 +33,7 @@ public static class CodeQuestionEndpoints
             return Results.Created("/api/code-questions", dto);
         });
 
-        group.MapPut("/{id:long}", async (long id, CodeQuestionDto dto, ICodeQuestionService service, IValidator<CodeQuestionDto> validator) =>
+        group.MapPut("/{id:long}", async (long id, CodeQuestionDto dto, ICodeQuestionService service, [FromServices] IValidator<CodeQuestionDto> validator) =>
         {
             if (dto.Id != id)
                 return Results.BadRequest("ID does not match DTO ID");
