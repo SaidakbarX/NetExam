@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -10,7 +11,7 @@ public static class CodeQuestionEndpoints
     {
         var group = app.MapGroup("/api/code-questions").WithTags("Code Questions");
 
-        group.MapGet("/", async (ICodeQuestionService service) =>
+        group.MapGet("/", async ([FromServices] ICodeQuestionService service) =>
         {
             var questions = await service.GetAllAsync();
             return Results.Ok(questions);

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -10,7 +11,7 @@ public static class ProgrammingLanguageEndpoints
     {
         var group = app.MapGroup("/api/programming-languages").WithTags("Programming Languages");
 
-        group.MapGet("/", async (IProgrammingLanguageService service) =>
+        group.MapGet("/", async ([FromServices]IProgrammingLanguageService service) =>
         {
             var result = await service.GetAllAsync();
             return Results.Ok(result);

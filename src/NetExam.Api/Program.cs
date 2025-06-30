@@ -20,6 +20,7 @@ namespace NetExam.Api
             builder.ConfigureDataBase();
             builder.ConfigureSerilog();
             builder.ConfigureJwtSettings();
+            builder.ConfigureDependencies();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

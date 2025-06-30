@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using NetExam.Application.Dtos;
 using NetExam.Application.Services;
 
@@ -10,7 +11,7 @@ namespace NetExam.Api.Entpoints
         {
             var group = app.MapGroup("/api/exams").WithTags("Exams");
 
-            group.MapGet("/", async (IExamService service) =>
+            group.MapGet("/", async ([FromServices] IExamService service) =>
             {
                 var exams = await service.GetAllAsync();
                 return Results.Ok(exams);

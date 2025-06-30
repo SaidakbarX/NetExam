@@ -49,5 +49,6 @@ public static class DependecyInjectionsConfiguration
         services.AddScoped<IValidator<TestCaseDto>, TestCaseDtoValidator>();
         services.AddScoped<IValidator<UserCreateDto>, UserCreateDtoValidator>();
         services.AddScoped<IValidator<UserUpdateDto>, UserUpdateDtoValidator>();
+        services.AddScoped<IValidator<UserLoginDto>, UserLoginDtoValidator>();
     }
 }
