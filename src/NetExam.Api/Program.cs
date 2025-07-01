@@ -21,6 +21,19 @@ namespace NetExam.Api
             builder.ConfigureSerilog();
             builder.ConfigureJwtSettings();
             builder.ConfigureDependencies();
+            // Program.cs da
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
+          
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -46,6 +59,7 @@ namespace NetExam.Api
             app.MapTestCaseEndpoints();
             app.MapAuthEndpoints();
             app.MapUserEndpoints();
+            app.UseCors("AllowReactApp");
 
 
 
